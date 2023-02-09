@@ -3,10 +3,11 @@ services:
   frontend:
     build:
       context: ../
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile.devcontainer
     network_mode: host
     env_file:
       - ../../frontend.env
     volumes:
       - ../:/app
       - /app/node_modules 
+      - ~/.gitconfig:~/.gitconfig
