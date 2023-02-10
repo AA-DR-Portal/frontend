@@ -1,6 +1,7 @@
 import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
 import UserPool from "../utils/CognitoUserPool";
+import { getRequest } from "../utils/api";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -18,9 +19,10 @@ export const Login = () => {
       Pool: UserPool,
     });
     cognitoUser.authenticateUser(authDetails, {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         const accessToken = result.getAccessToken().getJwtToken();
-        console.log(accessToken);
+        const response = await getRequest(accessToken)
+        return response
       },
       onFailure: (err) => {
         console.log(err);
