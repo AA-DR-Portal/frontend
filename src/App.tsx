@@ -3,7 +3,7 @@ import reactLogo from "./assets/react.svg";
 import { Footer } from "./components/Footer";
 import axios from "axios";
 import "./App.css";
-import { Signup } from "./components/Signup";
+import { Login } from "./components/Login";
 
 function App() {
   const [date, setDate] = useState("");
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <div className="card">
-        <Signup />
+        <Login />
       </div>
       <Footer />
     </div>
