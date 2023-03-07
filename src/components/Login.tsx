@@ -1,11 +1,12 @@
 import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserPool from "../utils/CognitoUserPool";
-import { getRequest } from "../utils/api";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onLogin = (e: any) => {
     e.preventDefault();
@@ -20,9 +21,9 @@ export const Login = () => {
     });
     cognitoUser.authenticateUser(authDetails, {
       onSuccess: async (result) => {
-        const accessToken = result.getAccessToken().getJwtToken();
-        const response = await getRequest(accessToken)
-        return response
+        // const accessToken = result.getAccessToken().getJwtToken();
+        // const response = await getRequest(accessToken);
+        navigate("/dashboard");
       },
       onFailure: (err) => {
         console.log(err);

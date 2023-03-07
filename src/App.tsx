@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Footer } from "./components/Footer";
-import axios from "axios";
 import "./App.css";
 import { Login } from "./components/Login";
+import { Signup } from "./components/Signup";
+import { Dashboard } from "./components/Dashboard";
 
 function App() {
-  const [date, setDate] = useState("");
-
-  useEffect(() => {
-    const getDate = async () => {
-      const { data } = await axios.get("http://localhost:3001");
-      setDate(data);
-    };
-    getDate();
-  }, []);
-
   return (
-    <div className="App">
-      <div className="card">
-        <Login />
+    <BrowserRouter>
+      <div className="App">
+        <div className="card">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 
