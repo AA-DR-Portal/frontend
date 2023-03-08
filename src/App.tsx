@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { Footer } from "./components/Footer";
 import axios from "axios";
 import "./App.css";
+
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 import { Signup } from "./components/Signup";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <div className="card">
         <Signup />
       </div>
