@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -7,17 +8,17 @@ const Navbar = () => {
   const [toggled, setToggled] = useState(false);
 
   const links = [
-    { name: "My Applications", linkTo: "" },
-    { name: "Why Us", linkTo: "" },
-    { name: "Expo Map", linkTo: "" },
-    { name: "Rules", linkTo: "" },
+    { name: "My Applications", linkTo: "/" },
+    { name: "Why Us", linkTo: "/" },
+    { name: "Expo Map", linkTo: "/" },
+    { name: "Rules", linkTo: "/" },
   ];
 
   return (
     <div
       className={
         // Constant
-        "fixed flex w-[100vw] min-w-screen h-[8vh] bg-cpac-black items-center z-10 py-4 [&>a]:text-cpac-white " +
+        "fixed flex w-[100vw] min-w-screen h-nav bg-cpac-black items-center z-10 py-4 [&>a]:text-cpac-white " +
         // Mobile
         "px-2 [&>a]:hidden" +
         // Desktop
@@ -25,22 +26,22 @@ const Navbar = () => {
       }
     >
       {/* Logo */}
-      <a href="">
+      <Link to="/">
         <img src="./logo.png" alt="" width={"35px"} />
-      </a>
+      </Link>
 
       {/* Links */}
       {links.map((link) => (
-        <a href={link.linkTo}>{link.name}</a>
+        <Link to={link.linkTo}>{link.name}</Link>
       ))}
 
       {/* Login Button */}
-      <a
-        href=""
+      <Link
+        to="/login"
         className="!ml-auto !mr-0 px-4 py-2 border rounded-md bg-clip-border transition-all hover:bg-cpac-white hover:text-cpac-black"
       >
         Login
-      </a>
+      </Link>
 
       {/* Mobile Hamburger */}
       <button

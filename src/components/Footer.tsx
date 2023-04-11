@@ -27,7 +27,7 @@ const socials = [
 
 const Footer = () => {
   return (
-    <footer className="relative bg-cpac-black w-screen p-6">
+    <footer className="relative bg-cpac-black w-screen mt-auto mb-0 p-6 text-cpac-white">
       <div className="px-6">
         <div className="flex flex-row">
           <div className="basis-1/3 block text-left">

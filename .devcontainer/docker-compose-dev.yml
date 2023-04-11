@@ -9,5 +9,5 @@ services:
       - ../../frontend.env
     volumes:
       - ../:/app
-      - /app/node_modules 
-      - ~/.gitconfig:~/.gitconfig
+      - /app/node_modules
+      - ~/.gitconfig:/.gitconfig

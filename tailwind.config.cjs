@@ -7,7 +7,11 @@ module.exports = {
       "cpac-black": "#1A1A1A",
       "cpac-red": "#E8434E",
     },
-    extend: {},
+    extend: {
+      spacing: {
+        nav: "8vh",
+      },
+    },
   },
   plugins: [],
 };
