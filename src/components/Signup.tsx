@@ -18,6 +18,7 @@ export const Signup = () => {
   const onSignUp = async (e: any) => {
     e.preventDefault();
 
+    // Validate the input
     try {
       validation.invalidParams({
         username,
