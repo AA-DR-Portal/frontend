@@ -1,6 +1,7 @@
-import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
-import UserPool from "../utils/CognitoUserPool";
+
+import * as users from "../controllers/users";
+import * as validation from "../utils/validation";
 
 export const Signup = () => {
   const [email, setEmail] = useState({
@@ -14,25 +15,41 @@ export const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSignUp = (e: any) => {
-    const attributeList = [];
+  const onSignUp = async (e: any) => {
     e.preventDefault();
 
-    const attributeEmail = new CognitoUserAttribute(email);
-    const attributeVendor = new CognitoUserAttribute(vendorType);
+    try {
+      validation.invalidParams({
+        username,
+        password,
+        email: email.Value,
+        vendorType: vendorType.Value,
+      });
+      validation.invalidStrings({
+        username,
+        password,
+        email: email.Value,
+        vendorType: vendorType.Value,
+      });
+    } catch (e) {
+      console.log(e); // TODO: Do something with the invalid value
+      return;
+    }
 
-    attributeList.push(attributeEmail);
-    attributeList.push(attributeVendor);
+    // Call the controller to create the user
+    try {
+      var newUser = await users.signup({
+        username,
+        password,
+        email,
+        vendorType,
+      });
+    } catch (e) {
+      console.log(e); // TODO: Do something with the error
+      return;
+    }
 
-    UserPool.signUp(
-      username,
-      password,
-      attributeList,
-      attributeList,
-      (err, data) => {
-        err ? console.log(err) : console.log(data);
-      }
-    );
+    return newUser;
   };
 
   const handleVendorType = (e: any) => {
