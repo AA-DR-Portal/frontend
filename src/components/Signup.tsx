@@ -1,4 +1,4 @@
-import { CognitoUserAttribute } from "amazon-cognito-identity-js";
+import { CognitoUserAttribute, CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import React, { useState } from "react";
 import UserPool from "../utils/CognitoUserPool";
 
@@ -19,10 +19,10 @@ export const Signup = () => {
     e.preventDefault();
 
     const attributeEmail = new CognitoUserAttribute(email);
-    const attributeVendor = new CognitoUserAttribute(vendorType);
+    //const attributeVendor = new CognitoUserAttribute(vendorType);
 
     attributeList.push(attributeEmail);
-    attributeList.push(attributeVendor);
+    //SattributeList.push(attributeVendor);
 
     UserPool.signUp(
       username,
@@ -30,7 +30,31 @@ export const Signup = () => {
       attributeList,
       attributeList,
       (err, data) => {
-        err ? console.log(err) : console.log(data);
+        if (err) {
+          console.log(err);
+        } else{
+          /* Debug */
+
+          alert("Confirm user");
+          
+          const cognitoUser = data.user;
+          const authenticationDetails = new AuthenticationDetails({
+            Username: username,
+            Password: password,
+          });
+
+          cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: (loggedInUser) => {
+              const accessToken = loggedInUser.getAccessToken().getJwtToken();
+               const idToken = loggedInUser.getIdToken().getJwtToken();
+               console.log("Access token:", accessToken);
+               console.log("ID Token:", idToken);
+            },
+            onFailure: (err) => {
+              console.log(err);
+            },
+          });
+        }
       }
     );
   };
